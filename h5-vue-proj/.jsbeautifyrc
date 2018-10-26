@@ -1,0 +1,15 @@
+{
+    "brace_style": "none,preserve-inline",
+    "indent_size": 2,
+    "indent_char": " ",
+    "jslint_happy": true,
+    "unformatted": [""],
+    "css": {
+      "indent_size": 2
+    }
+  }
+  {
+    "key": "cmd+b",//自己定键位
+    "command": "HookyQR.beautify",
+    "when": "editorFocus"
+  }

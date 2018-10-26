@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <script src="./js/zepto.min-1.2.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script><!--mask -->
+    <script type="text/javascript">
+
+
+
+     
+        var initRem = function () {
+            var deviceWidth = document.documentElement.clientWidth;
+            if (deviceWidth > 640) deviceWidth = 640;
+            document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        }
+        initRem();
+        window.onresize = initRem();
+
+
+
+
+
+    </script>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=9;IE=8;IE=7;ie=edge">
+    <link rel="icon" href="./images/pic300.png" type="image/x-icon" />
+    
+    <title>news....</title>
+
+    <style>
+
+        * { margin:0; padding:0; font-size: .3rem}
+
+.rootContent {
+    background-color: #FFFFFF;
+    width: 90%;
+    padding: 5% ;
+}
+
+   .rootContent  .headerTitle {
+        font-size: 22px;/*mask*/
+        font-weight: bold;
+   }
+
+#imgTitle {
+    display: none;
+    width: 99%;
+
+ 
+}
+/* mask+ */
+#textContent img {
+    width: 100%;
+} 
+
+.headerItem {
+   
+    margin-top:.3rem;
+    margin-bottom:.3rem;
+    color:  #8F96A4;/*mask*/
+}
+/*mask*/
+#source,#time{
+font-size: 11px;
+}
+#textContent {
+    color: #454545;
+    /*mask*/
+    font-size: 17px !important;
+   font-family: PingFangSC-Regular;
+   letter-spacing: 1.89px;
+    line-height: 28px;
+    text-align:justify;
+   text-justify:inter-ideograph;
+}
+/*mask*/
+#textContent p{
+    /* text-indent: 1.5em; */
+      margin-bottom:13px;
+}
+#textContent div p,#textContent div strong,#textContent section a,#textContent article p,#textContent section,#textContent div a,#textContent div span,#textContent div font{
+    font-size: 17px;
+    letter-spacing: 1.89px;
+    line-height: 28px;
+    font-family: PingFangSC-Regular;
+}
+.sayGood {
+    width:1.2rem;
+    height: 1.2rem;
+    border-radius: 1.3rem;
+    background-color: #fe4040;
+    margin: 0.2rem auto;
+    text-align: center;
+}
+
+.sayGood .img {
+    width:.3rem;
+    height: .3rem;
+    display: block !important;/*mask*/
+    margin: .1rem auto;
+    padding-top:.2rem;
+}
+
+ #sayGoodCount {
+     color: #fff;
+}
+   
+/* .relativeTags {
+
+} */
+
+.relativeTags span {
+    font-size: 0.34rem;
+    font-weight:bold;
+}
+
+#tags li {
+    float: left;
+     list-style: none; 
+     margin-right:.2rem;
+     padding:6px;
+background-color:#f2f2f2;
+/*mask*/
+font-size: 14px;
+color: #666666;
+border-radius: 5%;
+margin-bottom: 0.05rem;
+ }
+
+.info {
+    clear: both;
+    margin-top: 0.9rem;
+    color: #4A4A4A; 
+    margin-bottom: 1.2rem;
+    /*mask*/
+    border-radius: 4px;
+    font-size:13px;
+    background-color: #f7f7f7;
+    padding: 0.11rem 0.11rem 0.11rem 0.11rem;
+}
+/*mask 加载*/
+
+#loading{
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  position: fixed;
+  top:0;
+  left: 0;
+  z-index: 9999;
+}
+ #loading >i{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin: auto;
+    background: url("./images/5-121204193R0-50.gif") no-repeat;
+    background-size: 100% 100%;
+}
+
+
+</style>
+
+
+
+
+</head>
+
+
+
+
+
+<body>
+  <!-- mask加载图 -->  
+  <div id="loading">
+    <i></i>
+</div>
+
+
+
+    <div class="rootContent">
+
+        
+        <!-- <img alt=""  src="" id="imgTitle" /> -->
+        
+        <div class="headerTitle" id="headerTitle">
+
+        </div>
+
+
+        <div class="headerItem">
+            <span id="source">
+
+
+            </span>
+
+            <span id="time">
+
+
+            </span>
+
+        </div>
+
+
+        <div id="textContent">
+
+
+        </div>
+
+
+
+        <div class="sayGood" id="sayGood">
+
+            <img src="images/Shape@2x.png" class="img" />
+
+            <span id="sayGoodCount"></span>
+
+
+        </div>
+
+
+        <div class="relativeTags">
+            <span id="label">相关标签</span>
+
+
+            <ul id="tags">
+
+            </ul>
+
+        </div>
+
+
+
+        <div class="info">
+
+
+            免责声明:本产品内发布的信息，目的在于传播更多信息，与本终端立场无关。本产品力求但无法保证该信息（包括但不限于文字、数据及图表）全部或者部分内容的准确性、真实性、完整性、有效性、及时性、原创性等。相关信息并未经过本终端证实，不对您构成任何投资建议，据此操作，风险自担。
+        </div>
+
+
+    </div> <!-- rootContent -->
+
+
+    
+    
+
+
+
+    <script type="text/javascript">
+    //加载
+// document.onreadystatechange = function () {
+//     if(document.readyState === "complete"){
+//         $("#loading").fadeOut();
+//     }
+// }
+/*时间戳*/
+function getDateDiff(dateTimeStamp){
+	var minute = 1000 * 60;
+	var hour = minute * 60;
+	var day = hour * 24;
+	var halfamonth = day * 15;
+	var month = day * 30;
+	var now = new Date().getTime();
+	var diffValue = now - dateTimeStamp;
+	if(diffValue < 0){return;}
+	var monthC =diffValue/month;
+	var weekC =diffValue/(7*day);
+	var dayC =diffValue/day;
+	var hourC =diffValue/hour;
+	var minC =diffValue/minute;
+	if(monthC>=1){
+		result="" + parseInt(monthC) + "月前";
+	}
+	else if(weekC>=1){
+		result="" + parseInt(weekC) + "周前";
+	}
+	else if(dayC>=1){
+		result=""+ parseInt(dayC) +"天前";
+	}
+	else if(hourC>=1){
+		result=""+ parseInt(hourC) +"小时前";
+	}
+	else if(minC>=1){
+		result=""+ parseInt(minC) +"分钟前";
+	}else
+	result="刚刚";
+	return result;
+}
+
+
+        var up_flag   // 是否已点赞
+    
+        // 取参数的方法
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() ==
+                    paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+            }
+            return paramValue == "" && (paramValue = null), paramValue
+        }
+    
+    
+        var title = document.getElementById('headerTitle');
+        var tags = document.getElementById('tags');
+        var source = document.getElementById('source');
+        var time = document.getElementById('time');
+        var textCotent = $('#textContent');//mask
+        var oid = getParam("oid");
+        var columnOid = getParam("columnOid");
+        var device_id = getParam("device_id");
+        var sayGoodCount = $("#sayGoodCount");
+        
+    
+    
+        function httpGetNewsDetail() {
+            $.ajax({
+                type: 'post',
+                url: 'https://' + location.host + '/bctechnews/client/queryNewsDetail',
+                dataType: 'json',
+                data:{
+                    'newsOid':oid,
+                    'device_id':device_id,
+                    'device_type':'ios'
+                },
+                timeout: 3000,
+                context: $('body'),
+                success: function (data) {
+
+                    var mydata = data.data;
+    
+    
+                    title.innerText = mydata.title;
+                    source.innerText = mydata.source;
+                    time.innerText =getDateDiff(mydata.releaseTime);
+                    up_flag = mydata.up_flag;
+                    sayGoodCount.text( mydata.lie_up_num);
+                    textCotent.html(mydata.content);
+                      /*mask*/
+                      if(mydata.tags==""){
+                          $('#label').css("display","none");
+                          $('#tags').css("display","none");
+                      }
+                    if (up_flag != null) {
+                       this.sayGoodCount=parseInt(mydata.lie_up_num)+1;//mask+
+                       sayGoodCount.text(this.sayGoodCount);//maks+
+                      $("#sayGood").css("background-color" , "gray");
+                      $("#sayGood").unbind();
+                
+                     }
+                       // 如果有Img图 
+                     if(mydata.img.length > 5) {
+                             $("#imgTitle").show();
+                            $("#imgTitle").attr("src", mydata.img);
+                     }
+                     //mask+ 图片加载失败
+                     $('img').error(function () {   //加载图片 出现404状态时触发
+                    $('img').css('display','none') 
+            });
+                 
+    
+                    var tagArray = mydata.tags.split("、");
+                    var tagHtml = "";
+                    for (var i = 0; i < tagArray.length; i++) {
+                        tagHtml += "<li>" + tagArray[i] + "</li>";
+                    }
+                    tags.innerHTML = tagHtml;
+                    
+
+                    //dismiss
+                    $("#loading").fadeOut();
+                },
+                error: function (xhr, type) {
+                    //dismiss
+                    $("#loading").fadeOut();
+                }
+            })
+        }
+
+    
+        function GiveTheThumbsUp() {
+
+
+            $.ajax({
+                type: 'post',
+                url: "https://" + location.host + '/bctechnews/client/addAction',
+                data: {
+                    "oid": oid,
+                    "columnOid": columnOid,
+                    "upvote": 1,
+                    "device_id":device_id
+                },
+                dataType: 'json',
+                timeout: 3000,
+                context: $('body'),
+                success: function (data) {
+                    var mydata = data.data;
+                    sayGoodCount.text(parseInt(sayGoodCount.text()) + 1);
+                    $("#sayGood").css("background-color" , "gray");
+                    $("#sayGood").unbind();
+                   
+    
+                    
+                },
+                error: function (xhr, type) {
+                    
+                }
+            })
+        }
+       
+        httpGetNewsDetail();
+        $("#sayGood").click(GiveTheThumbsUp);//mask
+    
+    // 点赞事件
+    
+    //  $(function(){
+ 
+    //      $("#sayGood").click(GiveTheThumbsUp);
+    //  })
+    
+    
+       
+    
+    
+    </script>
+
+</body>
+
+
+
+
+
+
+</html>

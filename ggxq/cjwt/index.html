@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="images/pic300.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/index.css?v=0.111" />
+    <title>爱理财</title>
+</head>
+<body>
+    <img src='images/pic300.png' style="width: 0;height: 0;" />
+    <script>
+        var initRem = function () {
+            var deviceWidth = document.documentElement.clientWidth;
+            if (deviceWidth > 640) deviceWidth = 640;
+            document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        }
+        initRem();
+        window.onresize = initRem();
+    </script>
+    <div style="width: 100%;">
+       <div class="hasHeader">
+           <div class="main">
+            <ul>
+                <li>
+                    <h3>什么是‘限定性集合资产管理计划’？</h3>
+                    <p>限定性集合资产管理计划是集合客户的资产，由专业的证券公司/基金子公司进行管理，主要用于投资国债、国家重点建设债券、债券型证券投资基金、在证券交易所上市的企业债券、其他信用度高且流动性强的固定收益类金融产品；投资于业绩优良、成长型高、流动性强的股票等权益类证券以及股票型证券投资的资产，不得超过该计划资产净值的百分之二十，并应当遵循分散投资风险的原则。</p>
+                </li>
+                <li>
+                    <h3>投资券商产品后是否可以撤单？封闭期可提前赎回？</h3>
+                    <p>支付完成投资后不接受撤单申请。在封闭期内不可提前赎回。</p>
+                </li>
+                <li>
+                    <h3>券商产品需要手动操作赎回？</h3>
+                    <p>带【到期自动滚存】标记的券商产品，到期日需要手动操作赎回，未赎回则会滚存至下一期。没有带【到期自动滚存】标记的券商产品，到期系统会自动赎回，不需要手动操作。</p>
+                </li>
+                <li>
+                    <h3>券商产品到期赎回后，资金什么时候能到账？</h3>
+                    <p>一般会在2-3工作日到账，具体以银行到账时间为准。</p>
+                </li>
+                <li>
+                    <h3>投资者预期收益如何计算？</h3>
+                    <p>预期收益=投资金额×业绩基准（年化）×（实际计息天数/365），业绩基准（年化）详见产品公告，实际收益到期后兑付值为准。所述预测结果仅供客户参考，不构成对客户的承诺。</p>
+                </li>
+                <li>
+                    <h3>购买券商产品是否能使用财迷卡和代金券？</h3>
+                    <p>券商产品暂不支持使用财迷卡，同时也不支持使用代金券。</p>
+                </li>
+            </ul>
+           </div> 
+       </div>
+    </div>
+    <script type="text/javascript">
+      //  $.ajax({
+    //        url:'https://dev.alc.com.cn/bcappzx/notice/queryNoticeDetail.json',
+    //        type: 'POST',
+    //        //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //        data:{oid: 'ff808081636dae080163711f1e6c0045',token: '2c25d11b9b3043e288f2748e40f4fe4d',clientid: '6136560d18df4c1ea8ae96fdde677842',termina_type: ''},
+    //        dataType: 'json',
+    //        async:false,
+    //        success: function (data) {
+    //            var mydata = data.data;
+//
+    //            // $("#content").text(JSON.stringify(data));
+//
+    //            if (mydata) {
+    //                //拿到那边给请求头
+    //                title.innerText = mydata.title;
+    //                sj.innerText = formatUnixtimestamp(mydata.releaseTime / 1000);
+    //                affiche.innerHTML = mydata.content;
+    //                //接口中的图片的尺寸
+    //                for (var i = 0; i < img.length; i++) {
+    //                    img[i].onload = function () {
+    //                        if (this.width > 320) {
+    //                            this.className = 'add'
+    //                        }
+    //                    }
+    //                }
+    //            } else {
+    //                //如果页面报错
+    //                Cutegraph.style.display = 'none';
+    //                hint.style.display = 'block';
+    //                hint.innerHTML = data.message;
+    //            };
+    //        },
+    //        error:function(data){
+    //           alert("错误");
+    //            }
+    //</div>    }) //
+    </script>
+</body>
+</html>

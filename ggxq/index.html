@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=9;IE=8;IE=7;ie=edge">
+    <link rel="icon" href="./images/pic300.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/index.css?v=0.111" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.49/polyfill.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <img src='./images/pic300.png' style="width: 0;height: 0;" />
+    <script type="text/javascript">
+        var initRem = function () {
+            var deviceWidth = document.documentElement.clientWidth;
+            if (deviceWidth > 640) deviceWidth = 640;
+            document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        }
+        initRem();
+        window.onresize = initRem();
+    </script>
+    <div style="width: 100%;">
+        <div class="roduce">
+            <div class="scroll">
+                <div class="detail" id="Cutegraph">
+                    <p class="title" id="tit">---</p>
+                    <p class="time" id="tim">---</p>
+                    <div class="main" id="text">----</div>
+                </div>
+                <div class="hint" id='hint'>暂无信息</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var affiche = document.getElementById('text');
+    var title = document.getElementById('tit');
+    var sj = document.getElementById('tim');
+    var ka = document.getElementById('Cutegraph');
+    var hint = document.getElementById('hint');
+    var img = affiche.getElementsByTagName('img')
+   
+    function formatUnixtimestamp(unixtimestamp) {
+        var unixtimestamp = new Date(unixtimestamp * 1000);
+        var year = 1900 + unixtimestamp.getYear();
+        var month = "0" + (unixtimestamp.getMonth() + 1);
+        var date = "0" + unixtimestamp.getDate();
+        var hour = "0" + unixtimestamp.getHours();
+        var minute = "0" + unixtimestamp.getMinutes();
+        var second = "0" + unixtimestamp.getSeconds();
+        return year + "-" + month.substring(month.length - 2, month.length) + "-" + date.substring(date.length - 2,
+                date.length) +
+            " " + hour.substring(hour.length - 2, hour.length) + ":" +
+            minute.substring(minute.length - 2, minute.length);
+    };
+
+   function apphomeNew(url, clientid, oid, termina_type, token) {
+       var formData = 'oid=' + oid + '&' + 'token=' + token + '&' + 'termina_type=' + termina_type + '&' + 'clientid=' +clientid;
+    fetch(url,{
+        method: 'POST',
+        headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+        body: formData,
+    }).then( res=> {
+             if (res.ok) {
+                 res.json().then(data=> {
+         var mydata = data.data;
+         if(mydata){
+            //拿到那边给请求头
+             title.innerText = mydata.title; 
+             sj.innerText = formatUnixtimestamp(mydata.releaseTime/1000); 
+             affiche.innerHTML=mydata.content
+             //接口中的图片的尺寸
+             for(var i =0; i<img.length; i++){
+                 img[i].onload = function(){
+                     if(this.width > 320){
+                         this.className = 'add'
+                     }
+                 }
+             }
+         }else{
+             //如果页面报错
+             Cutegraph.style.display='none';
+             hint.style.display = 'block';
+             hint.innerHTML = data.message;
+         };
+         })
+         }
+         })
+    };
+window.onload=apphomeNew;
+     function moud() {
+        //监听页面数据信息
+         document.addEventListener('message', function (e) {
+             let data = JSON.parse(e.data)
+            if (data) {
+                 apphomeNew( data.url, data.clientid, data.oid, data.termina_type, data.token);
+             }
+         });
+     };
+      window.onload = moud;
+    //时间戳
+
+</script>
+</html>
