@@ -459,14 +459,17 @@ export default {
         this.sp = false;
       }
 
-            let data = {
-        data: 'open'
+      if(this.currentIndex != 2){
+        let data = {
+          data: 'open'
+        }
+        window.postMessage(JSON.stringify(data));
       }
-      window.postMessage(JSON.stringify(data));
+     
 
-          document.addEventListener('touchmove', function (e) {
+      document.addEventListener('touchmove', function (e) {
         e.preventDefault() 
-    }, {passive: false})
+      }, {passive: false})
 
       if (this.currentIndex == 2) {
         window.location.href ='https://dev.alc.com.cn/alc/guide/listsupport.html'
